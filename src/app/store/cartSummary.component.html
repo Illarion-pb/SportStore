@@ -1,0 +1,15 @@
+<div class="pull-xs-right">
+    <small>
+        Ваша корзина:
+        <span *ngIf="cart.itemCount > 0">
+            {{cart.itemCount}}
+            {{cart.cartPrice * 36 | currency:"UAH":true:"2.2-2"}}
+        </span>
+        <span *ngIf="cart.itemCount == 0">
+            (пусто)
+        </span>
+    </small>
+    <button class="btn btn-sm bg-inverse" [disabled]="cart.itemCount == 0">
+        <i class="fa fa-shopping-bag"></i>
+    </button>
+</div>
