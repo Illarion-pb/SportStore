@@ -1,0 +1,48 @@
+<div class="navbar navbar-inverse bg-inverse">
+    <a class="navbar-brand">Спортивный магазин</a>
+</div>
+
+<div class="m-a-1">
+    <h2 class="text-xs-center">Ваша корзина</h2>
+    <table class="table table-bordered table-striped p-a-1">
+        <thead>
+            <tr>
+                <th>Количество</th>
+                <th>Наименование</th>
+                <th class="text-xs-right">Цена</th>
+                <th class="text-xs-right">Стоимость</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="cart.lines.length == 0">
+                <td colspan="4" class="text-xs-center">Ваша корзина пуста</td>
+            </tr>
+            <tr *ngFor="let line of cart.lines">
+                <td>
+                    <input type="number" class="form-control-sm" 
+                                    style="width:5em" 
+                                    [value]="line.quantity" 
+                                    (change)="cart.updateQuantity(line.product, $event.target.value)" />
+                </td>
+                <td>{{line.product.name}}</td>
+                <td class="text-xs-right">{{line.product.price*36 | currency: "UAH":true:"2.2-2"}}</td>
+                <td class="text-xs-right">{{(line.lineTotal)*36 | currency:"UAH":true:"2.2-2"}}</td>
+                <td class="text-xs-center">
+                    <button class="btn btn-sm btn-danger" (click)="cart.removeLine(line.product.id)">Удалить</button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-xs-right">Итого:{{cart.lines.length}}</td>
+                <td class="text-xs-right">
+                    {{cart.cartPrice*36 | currency:"UAH":true:"2.2-2"}}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="text-xs-center">
+    <button class="btn btn-primary" routerLink="/store">Продолжить покупки</button>
+    <button class="btn btn-secondary" routerLink="/checkout" [disabled]="cart.lines.length == 0">Оформить заказ</button>
+</div>
